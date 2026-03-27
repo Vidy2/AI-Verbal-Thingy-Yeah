@@ -1,13 +1,7 @@
-import pytesseract
-import cv2
-import time
-from matplotlib import pyplot as plt
+import easyocr
 
-imagePath = "image.png"
-image = cv2.imread(imagePath)
+reader = easyocr.Reader(['en'])
+result = reader.readtext('image.png')
 
-cv2.imshow("Image", image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-
-print(pytesseract.image_to_string(imagePath))
+for (bbox, text, prob) in result:
+    print(f'Text: {text}, Probability: {prob:.2f}')
